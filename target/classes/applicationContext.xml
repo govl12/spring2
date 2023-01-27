@@ -9,7 +9,7 @@
 	(Spring에서는 설정 필요하지만, Spring Boot에서는 설정 되어 있음.) 
 -->
 <context:component-scan base-package="polimorphism05"></context:component-scan>
-
+<context:component-scan base-package="com.spring"></context:component-scan> <!--  com.spring 밑에서 DB커넥션 등 어노테이션은 모~두 사용할 수 있음~ -->
 
 
 
@@ -22,5 +22,9 @@
 <!--  SamsungTV bean 생성 
 		SamsungTV tv = new SamsungTV();	
 -->
+
+<bean id ="tv" class="polimorphism04.SamsungTV"></bean>
+
+
 <!--<bean id = "tv" class="polimorphism05.AppleTV"></bean>!-->
 </beans>
