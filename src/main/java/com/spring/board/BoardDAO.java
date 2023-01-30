@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.common.JDBCUtil;
 
 @Repository("boardDAO")	//Spring Framework 에서 자동으로 객체가 생성되어서 RAM(메모리)에 로드.
-public class BoardDAO implements BoardService {
+public class BoardDAO /* implements BoardService */{
 		//DAO : Date Access Object 
 		//DataBase에 CRUD 하는 객체 : Select, Insert ,Update, Delete
 	
@@ -23,7 +23,7 @@ public class BoardDAO implements BoardService {
 		private ResultSet rs = null; 
 		
 	//2. SQL 쿼리를 담는 상수에 담아서 처리 변수 생성 후 할당 : 상수명 : 전체 대문자로 사용
-		private final String BOARD_INSERT="insert into board(seq,title,write,content) values(select nvl(max(seq), 0)+1 from board,?,?,?)";
+		private final String BOARD_INSERT="insert into board(seq,title,writer,content) values((select nvl(max(seq), 0)+1 from board),?,?,?)";
 		private final String BOARD_UPDATE="update board set title=?,content = ? where seq =?";
 		private final String BOARD_DELETE="delete board where seq =?";
 		private final String BOARD_GET="select * from board where seq=?";		//Database의 테이블에서 1개의 레코드만 출력 (상세보기(
@@ -37,7 +37,7 @@ public class BoardDAO implements BoardService {
 			// getBoardList() : 각각의 레코드를 DTO(1개), ArrayList에 DTO 객체를 담아서 리턴.
 	
 		//3-1 . 글 등록 처리 메소드 : insertBoard()
-		@Override
+
 		public void insertBoard(BoardDTO dto) {	 
 			System.out.println("==>jdbc로 insertBoard() 기능 처리 - 시작");
 			
@@ -61,12 +61,13 @@ public class BoardDAO implements BoardService {
 				System.out.println("==>jdbc로 insertBoard() 기능 처리 - 실패");
 			}finally {
 				JDBCUtil.close(pstmt, conn);
+				System.out.println("모든 객체가 잘 close()되었습니다.");
 			}
 			
 		}
 		
 		//3-2 . 글 수정 처리 메소드 : updateBoard()
-				@Override
+		
 				public void updateBoard(BoardDTO dto) {	
 					System.out.println("==>jdbc로 updatetBoard() 기능 처리");
 					
@@ -89,11 +90,12 @@ public class BoardDAO implements BoardService {
 						
 					}finally {
 						JDBCUtil.close(pstmt, conn);
+					
 					}
 					
 				}
 		//3-3 . 글 삭제 처리 메소드 : deleteBoard()
-				@Override
+
 				public void deleteBoard(BoardDTO dto) {	 
 					System.out.println("==>jdbc로  deleteBoard() 기능 처리");
 					
@@ -114,11 +116,11 @@ public class BoardDAO implements BoardService {
 					}
 				}		
 		//3-4 . 글 상세조회 처리 메소드 : getBoard() : 레코드 1개를 DB에서 Select 해서 DTO 객체에 담아서 리턴.
-				@Override
+	
 				public BoardDTO getBoard(BoardDTO dto) {	 
 					System.out.println("==>JDBC로 getBoard() 기능처리 - 시작");
 					//리턴으로 돌려줄 변수(board) 선언 : try ~ catch 블록 밖에서 선언하여야 함.
-					BoardDTO board = null;
+					BoardDTO board = new BoardDTO();
 					try {
 						//객체 생성 : Connection, PreparedStatement
 						conn = JDBCUtil.getConnection();
@@ -128,13 +130,13 @@ public class BoardDAO implements BoardService {
 						//DB를 SELECT한 결과를 rs에 저장함.
 						rs = pstmt.executeQuery();
 						
-						//rs에 담긴 값을 DTO에 젖아해서 리턴으로 돌려줌.
+						//rs에 담긴 값을 DTO에 저장해서 리턴으로 돌려줌.
 						
 						if(rs.next()) {	//rs의 값이 존재한다면, rs의 값을 DTO에 담아서 리턴
 							board.setSeq(rs.getInt("SEQ"));
 							board.setTitle(rs.getString("TITLE"));
 							board.setWriter(rs.getString("WRITER"));
-							board.setContent(rs.getString("CONTNET"));
+							board.setContent(rs.getString("CONTENT"));
 							board.setRegDate(rs.getDate("REGDATE"));
 							board.setCnt(rs.getInt("CNT"));
 							
@@ -153,7 +155,7 @@ public class BoardDAO implements BoardService {
 					return board;
 				}
 		//3-5. 글 목록 처리 메소드 : getBoardList() : 많은 레코드
-				@Override
+		
 				public List<BoardDTO> getBoardList(BoardDTO dto){
 					System.out.println("==> JDBC로 getBoardList() 기능처리 - 시작");
 					
@@ -164,7 +166,7 @@ public class BoardDAO implements BoardService {
 							//LinkedList : 자주 수정, 삭제 시 성능이 빠르게 처리됨.
 					
 					List<BoardDTO> boardList = new ArrayList<BoardDTO>();
-					BoardDTO board = null;
+					BoardDTO board = new BoardDTO();
 					
 					try {
 						conn = JDBCUtil.getConnection();
@@ -179,7 +181,7 @@ public class BoardDAO implements BoardService {
 								board.setSeq(rs.getInt("SEQ"));
 								board.setTitle(rs.getString("TITLE"));
 								board.setWriter(rs.getString("WRITER"));
-								board.setContent(rs.getString("CONTNET"));
+								board.setContent(rs.getString("CONTENT"));
 								board.setRegDate(rs.getDate("REGDATE"));
 								board.setCnt(rs.getInt("CNT"));
 								

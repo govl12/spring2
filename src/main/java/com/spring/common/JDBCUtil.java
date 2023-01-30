@@ -46,17 +46,20 @@ public class JDBCUtil {
 			try {
 				if(!pstmt.isClosed()) {	// pstmt객체가 close되지 않은 상태(제거되지 않은 상태)
 					pstmt.close();
+					System.out.println("pstmt 객체 close");
 				}
 			}catch(Exception e) {
 				e.printStackTrace();
 			}finally {
-				conn = null;
+				pstmt = null;
 			}
 		}
 		if(conn!=null) {
 			try {
 				if(!conn.isClosed()) {
-					pstmt.close();
+					conn.close();
+					System.out.println("conn 객체 close()");
+					
 				}
 			}catch (Exception e) {
 				e.printStackTrace();
