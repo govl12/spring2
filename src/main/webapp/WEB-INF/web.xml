@@ -48,12 +48,12 @@
 
 <!--  실습 -->
 <servlet>
-	<servlet-name>action</servlet-name>
+	<servlet-name>ac</servlet-name> <!-- servlet-name이 같으면 안됨. 중복XX오류 발생함!  -->
 	<servlet-class>com.spring.controller.ActionController</servlet-class>
 </servlet>
 
 <servlet-mapping> 
-	<servlet-name>action</servlet-name>
+	<servlet-name>ac</servlet-name>
 	<url-pattern>*.action</url-pattern> 
 </servlet-mapping>
 

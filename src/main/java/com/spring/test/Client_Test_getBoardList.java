@@ -1,4 +1,4 @@
-package com.spring.common;
+package com.spring.test;
 
 import java.util.List;
 
@@ -21,11 +21,13 @@ public class Client_Test_getBoardList {
 				BoardDTO boardDTO = new BoardDTO();
 				
 		//List<BoardDTO> 리턴을 받아옴
-				List<BoardDTO> boardList = boardService.getBoardList(boardDTO);
-					
-				for(BoardDTO board : boardList) {
-					System.out.println(board);
-				}
-	}
+				
+			//로직 이해.. (?) 
+			List<BoardDTO> boardList = boardService.getBoardList(boardDTO);
+				
+			for(BoardDTO board : boardList) {
+				System.out.println(board);
+			}
+}
 
 }

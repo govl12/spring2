@@ -1,4 +1,4 @@
-package com.spring.common;
+package com.spring.test;
 
 import java.sql.Connection;
 
@@ -7,6 +7,7 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 
 import com.spring.board.BoardDTO;
 import com.spring.board.BoardService;
+import com.spring.common.JDBCUtil;
 
 
 public class Client_test1 {	//DB Connection 테스트
@@ -35,7 +36,7 @@ public class Client_test1 {	//DB Connection 테스트
 		BoardDTO boardDTO = new BoardDTO();
 		
 		//DTO 의 Setter를 사용해서 각 필드의 값을 할당 . : title, write, content
-		boardDTO.setTitle("임시제목 - 4");
+		boardDTO.setTitle("임시제목 - 10");
 		boardDTO.setWriter("홍길동");
 		boardDTO.setContent("임시 내용입니다...");
 		
@@ -46,7 +47,7 @@ public class Client_test1 {	//DB Connection 테스트
 		//Update 기능 테스트
 		boardDTO.setTitle("수정된 제목");
 		boardDTO.setContent("수정된내용");
-		boardDTO.setSeq(3); // 주의 : DB에서 반드시 존재해야함(SEQ)
+		boardDTO.setSeq(6); // 주의 : DB에서 반드시 존재해야함(SEQ)
 		
 		//Update Board 기능 테스트 완료
 		boardService.updateBoard(boardDTO);

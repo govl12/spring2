@@ -119,8 +119,12 @@ public class BoardDAO /* implements BoardService */{
 	
 				public BoardDTO getBoard(BoardDTO dto) {	 
 					System.out.println("==>JDBC로 getBoard() 기능처리 - 시작");
+					
 					//리턴으로 돌려줄 변수(board) 선언 : try ~ catch 블록 밖에서 선언하여야 함.
 					BoardDTO board = new BoardDTO();
+					//System.out.println("dto seq ; " + dto.getSeq());
+					
+					
 					try {
 						//객체 생성 : Connection, PreparedStatement
 						conn = JDBCUtil.getConnection();
@@ -166,7 +170,7 @@ public class BoardDAO /* implements BoardService */{
 							//LinkedList : 자주 수정, 삭제 시 성능이 빠르게 처리됨.
 					
 					List<BoardDTO> boardList = new ArrayList<BoardDTO>();
-					BoardDTO board = new BoardDTO();
+					BoardDTO board;
 					
 					try {
 						conn = JDBCUtil.getConnection();
@@ -177,6 +181,7 @@ public class BoardDAO /* implements BoardService */{
 						
 						if(rs.next()) {	//rs.next가 존재하는 경우
 							do {
+								board = new BoardDTO();
 								//rs에서 가져온 1개의 레코드를 board(DTO)
 								board.setSeq(rs.getInt("SEQ"));
 								board.setTitle(rs.getString("TITLE"));

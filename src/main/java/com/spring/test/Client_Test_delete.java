@@ -1,4 +1,4 @@
-package com.spring.common;
+package com.spring.test;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -6,28 +6,27 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 import com.spring.board.BoardDTO;
 import com.spring.board.BoardService;
 
-public class Client_Test_getBoard {
+public class Client_Test_delete {
 
 	public static void main(String[] args) {
-
+	
 		AbstractApplicationContext factory = 
 				new GenericXmlApplicationContext("applicationContext.xml");
 
 		//스프링 컨테이너로부터 Bean을 호출 : BoardService : 인터페이스 
 				BoardService boardService = (BoardService) factory.getBean("boardService");	
-				
-		//DTO 객체를 생성 후에 DTO Setter를 통해 주입하여 각 필드에 값을 넣음. 
+			
+				//DTO 객체를 생성 후에 DTO Setter를 통해 주입하여 각 필드에 값을 넣음. 
 				BoardDTO boardDTO = new BoardDTO();
 				
-				// 글 상세보기 : 1개의 레코드만 출력,
-				boardDTO.setSeq(1);
+				//deleteBoard() 메소드 테스트 
 				
-				//getBoard(boardDTO)==> 리턴으로 DTO
+				//DTO에 seq값을 할당 후, deleteBoard() 할당
+				boardDTO.setSeq(7);	// seq 값 5번
 				
-				BoardDTO dbDTO = boardService.getBoard(boardDTO);
-				
-				//toString() 재정의 되어 있음. : DB에서 SELECT 한 레코드 값을 출력
-				System.out.println(dbDTO);
+				//deleteBoard(boardDTO)
+				boardService.deleteBoard(boardDTO);
+	
 	}
 
 }

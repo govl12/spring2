@@ -16,11 +16,12 @@ public class TVUser {
 					// applicationContext.xml 	: bean을 셋팅하는 파일 , spring framework에서 생성
 			// 2. @(어노테이션)을 사용해서 객체를 생성 후 DI를 통해서 객체를 주입. <=== Spring Boot 를 사용하는 방식
 				
+				// 프레임워크에..객체화.. 
 				//a. @ (어노테이션)을 사용할 수 있도록 설정이 필요함.
 					//applicationContext.xml : Bean 구성 파일, 어노테이션을 사용할 수 있도록 설정 필요.(context 등록)
 						//<context:component-scan base-package="polimorphism05"></context:component-scan>
 				//b. 클래스 위에 @Component(어노테이션) 붙여서 객체를 생성
-					//다양한 종류의 클래스가 존재하기 떄문의 클래스의 종류에 따라서 여러 이름의 어노테이션(@)을 붙임.
+						//다양한 종류의 클래스가 존재하기 떄문의 클래스의 종류에 따라서 여러 이름의 어노테이션(@)을 붙임.
 					//@Component : 일반적인 클래스를 Bean(객체화) 생성
 					//@Service : 비즈니스 로직을 처리하는 클래스에 Bean 생성
 					//@Repository : 데이터 베이스 연동을 처리하는 DAO 클래스에 생성
