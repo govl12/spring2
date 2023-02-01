@@ -46,6 +46,8 @@ public class BoardDAO /* implements BoardService */{
 				
 					//Connection 객체를 사용해서 PreparedStatement 객체 활성화 
 					conn = JDBCUtil.getConnection();
+					// BOARD_INSERT="insert into board(seq,title,writer,content) "
+							//+ "values((select nvl(max(seq), 0)+1 from board),?,?,?)";
 					pstmt = conn.prepareStatement(BOARD_INSERT);
 					
 					//pstmt에 ?에 변수값을 할당.
@@ -73,6 +75,7 @@ public class BoardDAO /* implements BoardService */{
 					
 					try {
 						conn=JDBCUtil.getConnection();
+//						BOARD_UPDATE="update board set title=?,content = ? where seq =?";
 						pstmt = conn.prepareStatement(BOARD_UPDATE);
 							
 						//pstmt?의 ?에 dto에서 넘어오는 변수 값 할당.
@@ -101,6 +104,7 @@ public class BoardDAO /* implements BoardService */{
 					
 					try {
 						conn = JDBCUtil.getConnection();
+//						 BOARD_DELETE="delete board where seq =?";
 						pstmt = conn.prepareStatement(BOARD_DELETE);
 						//pstmt 의 ? 에 dto 에서 넘어오는 변수 값 할당.
 						pstmt.setInt(1, dto.getSeq());
@@ -158,8 +162,9 @@ public class BoardDAO /* implements BoardService */{
 					}
 					return board;
 				}
+				
 		//3-5. 글 목록 처리 메소드 : getBoardList() : 많은 레코드
-		
+				// dto -> list에 담는다..
 				public List<BoardDTO> getBoardList(BoardDTO dto){
 					System.out.println("==> JDBC로 getBoardList() 기능처리 - 시작");
 					
@@ -171,9 +176,12 @@ public class BoardDAO /* implements BoardService */{
 					
 					List<BoardDTO> boardList = new ArrayList<BoardDTO>();
 					BoardDTO board;
+					//BoardDTO board = new BoardDTO();
+					// 모든 객체가 동일한 주소값을 가지게 되어 한개만 계속 출력됨. 그래서 선언만 하고 밑에서 값 넣기 
 					
 					try {
 						conn = JDBCUtil.getConnection();
+						//BOARD_LIST = "select * from board order by seq desc";
 						pstmt = conn.prepareStatement(BOARD_LIST);
 						// 모든 컬럼을 가져오므로 ?에 변수값 할당할 필요 없음.
 						
@@ -181,7 +189,10 @@ public class BoardDAO /* implements BoardService */{
 						
 						if(rs.next()) {	//rs.next가 존재하는 경우
 							do {
+								
+								//DTO 객체는 여기서 만들어야함. (별도의 객체에 담기도록)
 								board = new BoardDTO();
+								
 								//rs에서 가져온 1개의 레코드를 board(DTO)
 								board.setSeq(rs.getInt("SEQ"));
 								board.setTitle(rs.getString("TITLE"));

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.common.JDBCUtil;
 
-@Repository("userDAO") // @Repository = Sprinframe work에 저장? / BEAN에 자동으로 등록되게 만듬. DAO에 객체를 자동으로 SPringframework에 생성 : Bean 생성
+@Repository("userDAO") // @Repository = Springframe work에 저장? / BEAN에 자동으로 등록되게 만듬. DAO에 객체를 자동으로 SPringframework에 생성 : Bean 생성
 public class UserDAO /* implements UserService*/ {
 	
 	//JDBC 관련 변수 선언(Connection, PreparedStatement(Statement), ResultSet)
@@ -26,7 +26,13 @@ public class UserDAO /* implements UserService*/ {
 	/*@Override*/
 	public UserDTO getUser(UserDTO dto) {
 		//객체 선언 : DB에서 select 한 레코드를 user에 담아서 리턴
-		UserDTO user = new UserDTO(); // null; 하고 밑에서 선언해도 됨..
+		
+		//이거머임ㅋㅋ 
+	//	UserDTO user = new UserDTO(); 
+		
+		// null; 하고 밑에서 선언.
+		UserDTO user = null;
+		
 		
 		System.out.println("DAO - " + dto.getId());
 		System.out.println("DAO - " + dto.getPassword());
@@ -41,9 +47,14 @@ public class UserDAO /* implements UserService*/ {
 			
 			rs = pstmt.executeQuery(); // select 문이므로 executeQuery()를 실행 후 rs로 리턴 
 			
+			
+			
 			//rs의 담긴 값을 가져와서 DTO(user)에 저장 후 리턴 돌려줌
 			
+			// DB의 ID와 Pass가 모두 일치할 경우 
 			if (rs.next()) { //레코드의 값이 존재할 때 커서를 해당 레코드로 이동
+				
+				user = new UserDTO(); // user 객체 생성 . 
 				
 				System.out.println("DB에서 값이 잘 Select 되었습니다.");
 				
