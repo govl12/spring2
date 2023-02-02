@@ -32,7 +32,8 @@ public class JDBCUtil {
 			e.printStackTrace();
 			System.out.println("DB연결에 실패했습니다.");
 		}
-		return null;//커넥션이 안되면.. 객체 리턴
+		return conn;
+		//return null;//커넥션이 안되면.. 객체 리턴
 		
 		
 	}	//메소드 호출하면 Connection 객체를 리턴하게 됨! 
